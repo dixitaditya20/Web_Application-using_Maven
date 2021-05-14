@@ -13,8 +13,16 @@
 
 <!-- Creating a Form for the User -->
 <form action="/login.do" method="post">
-	Enter your name here <input type ="text" name ="name"/> <input type = "submit" value="Login"/>
+	<p><font color="red">${errorMessage }</font></p>
+
+	<div> Enter your name here <input type ="text" name ="name"/> </div>  <br/>
+	<div> Enter your password here <input type ="password" name ="password"/> </div> <br/>
+	<input type = "submit" value="Login"/>
 </form>
 
 </body>
 </html>
+
+
+<!-- If the Vaid User <Send to Welcome Page> -->
+<!-- If the Invalid User <Send to Login Page> -->

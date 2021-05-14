@@ -8,7 +8,8 @@
 </head>
 <body>
 
-Welcome ${name}
+<p>Welcome ${name}</p>
+<p>My Todos are :- Todo List ${todos }</p>
 
 </body>
 </html>

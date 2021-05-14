@@ -3,11 +3,14 @@ package webapp;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.management.loading.PrivateClassLoader;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import Todo.todoService;
 
 /*
  * Browser sends Http Request to Web Server
@@ -33,6 +36,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = "/login.do")
 public class LoginServlet extends HttpServlet {
 
+	//Creating a User Validation Service
+	private UserValidationService services = new UserValidationService();
+	private todoService todoservice = new todoService();
+
 	//	@Override
 	//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	//		PrintWriter out = response.getWriter();
@@ -47,10 +54,10 @@ public class LoginServlet extends HttpServlet {
 	//
 	//	}
 
-	
+
 	// Creating a Get Request Method
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {	
 
 		/*Creating a Parameter Get Request
 		  Passing the Parameter from the Browser and Printing in Console Log*/
@@ -62,20 +69,33 @@ public class LoginServlet extends HttpServlet {
 		//Creating an connecting the JSP Page
 		request.getRequestDispatcher("/WEB-INF/Views/login.jsp").forward(request,response);
 	}
-	
+
 	//Creating a Post Method request
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		/*Creating a Parameter Get Request
-		  Passing the Parameter from the Browser and Printing in Console Log*/
-		request.getParameter("name");
+		//Calling User invalidService
 
-		request.setAttribute("name", request.getParameter("name"));
-		request.setAttribute("password", request.getParameter("password"));
+		String name = request.getParameter("name");
+		String password = request.getParameter("password");
 
-		//Creating an connecting the JSP Page
-		request.getRequestDispatcher("/WEB-INF/Views/welcome.jsp").forward(request,response);
+		request.setAttribute("name",name);
+		request.setAttribute("password",password);
+
+		boolean isUserValid = services.isUserValid(name, password);
+
+		if(isUserValid) {
+
+			//Creating an connecting the JSP Page
+			request.setAttribute("name", name);
+			request.setAttribute("todos", todoservice.retrieveTodos());
+			request.getRequestDispatcher("/WEB-INF/Views/welcome.jsp").forward(request,response);
+		}
+
+		else {
+			request.setAttribute("errorMessage","Invalid Credential");
+			request.getRequestDispatcher("/WEB-INF/Views/login.jsp").forward(request,response);
+		}
 	}
 
 }
