@@ -9,11 +9,11 @@
 <body>
 
 <!-- Passing the Get Parmeter and Displaying the Data on Web -->
-My Name is ${name} and Password is ${password }
+<!-- My Name is ${name} and Password is ${password } -->
 
-<!-- Creatinga Form for the User -->
-<form action="/login.do">
-	Enter your name here <input type ="text" name ="name"/> <input type = "submit" name = "Click to Submit"/>
+<!-- Creating a Form for the User -->
+<form action="/login.do" method="post">
+	Enter your name here <input type ="text" name ="name"/> <input type = "submit" value="Login"/>
 </form>
 
 </body>

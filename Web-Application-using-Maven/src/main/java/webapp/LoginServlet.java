@@ -47,6 +47,8 @@ public class LoginServlet extends HttpServlet {
 	//
 	//	}
 
+	
+	// Creating a Get Request Method
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
@@ -59,6 +61,21 @@ public class LoginServlet extends HttpServlet {
 
 		//Creating an connecting the JSP Page
 		request.getRequestDispatcher("/WEB-INF/Views/login.jsp").forward(request,response);
+	}
+	
+	//Creating a Post Method request
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+		/*Creating a Parameter Get Request
+		  Passing the Parameter from the Browser and Printing in Console Log*/
+		request.getParameter("name");
+
+		request.setAttribute("name", request.getParameter("name"));
+		request.setAttribute("password", request.getParameter("password"));
+
+		//Creating an connecting the JSP Page
+		request.getRequestDispatcher("/WEB-INF/Views/welcome.jsp").forward(request,response);
 	}
 
 }
