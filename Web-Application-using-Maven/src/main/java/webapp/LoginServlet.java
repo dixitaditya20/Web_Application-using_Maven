@@ -67,7 +67,7 @@ public class LoginServlet extends HttpServlet {
 		request.setAttribute("password", request.getParameter("password"));
 
 		//Creating an connecting the JSP Page
-		request.getRequestDispatcher("/WEB-INF/Views/login.jsp").forward(request,response);
+		request.getRequestDispatcher("/WEB-INF/Views/todo.jsp").forward(request,response);
 	}
 
 	//Creating a Post Method request
@@ -87,9 +87,8 @@ public class LoginServlet extends HttpServlet {
 		if(isUserValid) {
 
 			//Creating an connecting the JSP Page
-			request.setAttribute("name", name);
-			request.setAttribute("todos", todoservice.retrieveTodos());
-			request.getRequestDispatcher("/WEB-INF/Views/welcome.jsp").forward(request,response);
+			request.getSession().setAttribute("name", name);
+			response.sendRedirect("/todo.do");
 		}
 
 		else {

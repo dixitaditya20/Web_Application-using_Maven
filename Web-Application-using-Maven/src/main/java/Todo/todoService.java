@@ -12,9 +12,9 @@ public class todoService {
 		todos.add(new todoList("Learning Hibernate"));
 		todos.add(new todoList("Learning Kotlin"));
 		todos.add(new todoList("Learning GO"));
-	}
+	} 
 	
-	public List<todoList> retrieveTodos(){
+	public static List<todoList> retrieveTodos(){
 		return todos;
 	}
 }
